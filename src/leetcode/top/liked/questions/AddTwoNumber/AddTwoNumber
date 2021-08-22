@@ -1,0 +1,40 @@
+package leetcode.top.liked.questions.AddTwoNumber;
+
+class AddTwoNumber {
+
+    public class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+        ListNode sumListNode = head;
+        int carry = 0;
+
+        while (l1 != null || l2 != null) {
+            int l1_val = (l1 != null) ? l1.val : 0;
+            int l2_val = (l2 != null) ? l2.val : 0;
+
+            int sum = l1_val + l2_val + carry;
+            carry = sum / 10;
+            int digit = sum % 10;
+
+            ListNode current_node = new ListNode(digit);
+            sumListNode.next = current_node;
+
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
+            sumListNode = sumListNode.next;
+
+            if (carry > 0 ) {
+                ListNode new_node = new ListNode(carry);
+                sumListNode.next = new_node;
+            }
+        }
+        return head.next;
+    }
+}
